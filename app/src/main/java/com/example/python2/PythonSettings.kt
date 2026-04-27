@@ -1,0 +1,352 @@
+package com.example.python2
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Text
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.python2.ui.theme.Python2Theme
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PythonRulesSettings(
+    options: Map<Color, String>,
+    returnHome: () -> Unit,
+    foodColor: Color?,
+    poisonColor: Color?,
+    headPythonColor: Color?,
+    bodyPythonColor: Color?,
+
+    selectedOption: String,
+    expanded: Boolean = false,
+    //onClick: () -> Unit,
+    onClickExpandedChange: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
+    onClickOptionExpanded: (String) -> Unit,
+    onClickExpanded: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Spacer(
+            modifier = Modifier
+                .weight(0.1f)
+        )
+        Text(
+            text = "Rules",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal
+        )
+        Spacer(
+            modifier = Modifier
+                .weight(0.02f)
+        )
+        Text(
+            text = "The aim is to have the head of your python (denoted: ",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        )
+        Text(
+            text = ") to pick up food (denoted: ",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        )
+        Text(
+            text = "in order to increase the body of your python, (denoted: ",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        )
+        Text(
+            text = "whilst avoiding poison (denoted: ",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle.Normal
+        )
+        Spacer(
+            modifier = Modifier
+                .weight(0.05f)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Text(
+                text = "Food Colour: ",
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            DropDownTextField(
+                options = options,
+                /*
+                onClick = {
+                    selectedOption = option.toString()
+                    expanded = false
+                    idx = options.values.indexOf(selectedOption)
+                },
+                 */
+                selectedOption = selectedOption,
+                expanded = expanded,
+                //onClick = onClick,
+                onClickExpandedChange = onClickExpandedChange,
+                onDismissRequest = onDismissRequest,
+                onClickOptionExpanded = onClickOptionExpanded,
+                onClickExpanded = onClickExpanded
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Column(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        shape = CircleShape,
+                        color = foodColor ?: Color.Transparent
+                    )
+                    .background(color = foodColor ?: Color.Transparent)
+                    .clip(shape = CircleShape)
+                    .size(20.dp)
+                    .align(Alignment.CenterVertically)
+            ) {}
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .weight(0.05f)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Text(
+                text = "Poison Colour: ",
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            DropDownTextField(
+                options = options,
+                selectedOption = selectedOption,
+                expanded = expanded,
+                //onClick = onClick,
+                onClickExpandedChange = onClickExpandedChange,
+                onDismissRequest = onDismissRequest,
+                onClickOptionExpanded = onClickOptionExpanded,
+                onClickExpanded = onClickExpanded
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Column(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        shape = CircleShape,
+                        color = poisonColor ?: Color.Transparent
+                    )
+                    .background(color = poisonColor ?: Color.Transparent)
+                    .clip(shape = CircleShape)
+                    .size(20.dp)
+                    .align(Alignment.CenterVertically)
+            ) {}
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .weight(0.05f)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Text(
+                text = "Head Python Colour: ",
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            DropDownTextField(
+                options = options,
+                selectedOption = selectedOption,
+                expanded = expanded,
+                //onClick = onClick,
+                onClickExpandedChange = onClickExpandedChange,
+                onDismissRequest = onDismissRequest,
+                onClickOptionExpanded = onClickOptionExpanded,
+                onClickExpanded = onClickExpanded
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Column(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        shape = CircleShape,
+                        color = headPythonColor ?: Color.Transparent
+                    )
+                    .background(color = headPythonColor ?: Color.Transparent)
+                    .clip(shape = CircleShape)
+                    .size(20.dp)
+                    .align(Alignment.CenterVertically)
+            ) {}
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .weight(0.05f)
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Text(
+                text = "Body Python Colour: ",
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            DropDownTextField(
+                options = options,
+                selectedOption = selectedOption,
+                expanded = expanded,
+                //onClick = onClick,
+                onClickExpandedChange = onClickExpandedChange,
+                onDismissRequest = onDismissRequest,
+                onClickOptionExpanded = onClickOptionExpanded,
+                onClickExpanded = onClickExpanded
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+            Column(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        shape = CircleShape,
+                        color = bodyPythonColor ?: Color.Transparent
+                    )
+                    .background(color = bodyPythonColor ?: Color.Transparent)
+                    .clip(shape = CircleShape)
+                    .size(20.dp)
+                    .align(Alignment.CenterVertically)
+            ) {}
+            Spacer(
+                modifier = Modifier
+                    .weight(0.2f)
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .weight(0.45f)
+        )
+        Button(
+            onClick = returnHome
+        ) {
+            Text(
+                text = "Return Home"
+            )
+        }
+        Spacer(
+            modifier = Modifier
+                .weight(0.1f)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PythonRulesSettingsTest() {
+    Python2Theme {
+        PythonRulesSettings(
+            options = mapOf(),
+            returnHome = {},
+            foodColor = Color.Black,
+            poisonColor = Color.Black,
+            headPythonColor = Color.Black,
+            bodyPythonColor = Color.Black,
+            selectedOption = "",
+            expanded = false,
+            //onClick = {},
+            onDismissRequest = {},
+            onClickExpandedChange = {},
+            onClickOptionExpanded = {},
+            onClickExpanded = {}
+        )
+    }
+}
