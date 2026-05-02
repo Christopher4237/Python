@@ -41,8 +41,18 @@ fun PythonNavigation (
     val pythonUiState by pythonViewModel.uiState.collectAsState()
 
     // State variables
-    var expanded by remember { mutableStateOf(false) }
+    var expandedFood by remember { mutableStateOf(false) }
+    var expandedBody by remember { mutableStateOf(false) }
+    var expandedPoison by remember { mutableStateOf(false) }
+    var expandedHead by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("") }
+    var selectedOptionFoodColor by remember { mutableStateOf("") }
+    var selectedOptionPoisonColor by remember { mutableStateOf("") }
+    var selectedOptionHeadColor by remember { mutableStateOf("") }
+    var selectedOptionBodyColor by remember { mutableStateOf("") }
+
+
+
     var idx by remember { mutableIntStateOf(0) }
 
 
@@ -117,11 +127,19 @@ fun PythonNavigation (
                 },
                 options = pythonUiState.colors,
                 foodColor = pythonUiState.foodColor,
+                //foodColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionFoodColor)),
                 poisonColor = pythonUiState.poisonColor,
                 headPythonColor = pythonUiState.headPythonColor,
                 bodyPythonColor = pythonUiState.bodyPythonColor,
-                selectedOption = selectedOption,
-                expanded = expanded,
+                //selectedOption = selectedOption,
+                selectedOptionFoodColor = selectedOptionFoodColor,
+                selectedOptionBodyColor = selectedOptionBodyColor,
+                selectedOptionPoisonColor = selectedOptionPoisonColor,
+                selectedOptionHeadColor = selectedOptionHeadColor,
+                expandedFood = expandedFood,
+                expandedBody = expandedBody,
+                expandedPoison = expandedPoison,
+                expandedHead = expandedHead,
                 /*
                 onClick = {
                     selectedOption = it.toString()
@@ -129,13 +147,33 @@ fun PythonNavigation (
                     idx = pythonUiState.colors.values.indexOf(selectedOption)
                 },
                  */
-                onClickExpandedChange = { expanded = !expanded },
-                onDismissRequest = { expanded = false },
-                onClickExpanded = {
-                    expanded = false
+                onClickExpandedChangeFood = { expandedFood = !expandedFood },
+                onClickExpandedChangeBody = { expandedBody = !expandedBody },
+                onClickExpandedChangeHead = { expandedHead = !expandedHead },
+                onClickExpandedChangePoison = { expandedPoison = !expandedPoison },
+                onDismissRequestFood = { expandedFood = false },
+                onDismissRequestBody = { expandedBody = false },
+                onDismissRequestHead = { expandedHead = false },
+                onDismissRequestPoison = { expandedPoison = false },
+                onClickExpandedFood = { expandedFood = false },
+                onClickExpandedBody = { expandedBody = false },
+                onClickExpandedHead = { expandedHead = false },
+                onClickExpandedPoison = { expandedPoison = false },
+                onClickOptionExpandedFoodColor = {
+                    selectedOptionFoodColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
+                    pythonUiState.foodColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionFoodColor))
                 },
-                onClickOptionExpanded = {
-                    selectedOption = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
+                onClickOptionExpandedPoisonColor = {
+                    selectedOptionPoisonColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
+                    pythonUiState.poisonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionPoisonColor))
+                },
+                onClickOptionExpandedHeadColor = {
+                    selectedOptionHeadColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
+                    pythonUiState.headPythonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionHeadColor))
+                },
+                onClickOptionExpandedBodyColor = {
+                    selectedOptionBodyColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
+                    pythonUiState.bodyPythonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionBodyColor))
                 }
             )
         }

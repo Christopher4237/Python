@@ -15,10 +15,10 @@ data class PythonUiState (
     val colors: Map<Color, String> = mapOf(Color.Black to "Black", Color.Blue to "Blue",
         Color.Red to "Red", Color.LightGray to "Light Gray",
         Color.Cyan to "Cyan", Color.DarkGray to "Dark Gray", Color.Gray to "Gray",
-        Color.Green to "Green", Color.Magenta to "Magenta"),
-    val foodColor: Color? = null,
-    val poisonColor: Color? = null,
-    val headPythonColor: Color? = null,
-    val bodyPythonColor: Color? = null,
+        Color.Green to "Green", Color.Magenta to "Magenta", Color.Yellow to "Yellow"),
+    var foodColor: Color? = null,
+    var poisonColor: Color? = null,
+    var headPythonColor: Color? = null,
+    var bodyPythonColor: Color? = null,
     val speed: Long = 100L
 )

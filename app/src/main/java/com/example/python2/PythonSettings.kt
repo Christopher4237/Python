@@ -2,6 +2,7 @@ package com.example.python2
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
@@ -25,6 +30,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.python2.ui.theme.Python2Theme
+
+enum class TextFieldChosen {
+    Food,
+    Poison,
+    Head,
+    Body
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,15 +48,37 @@ fun PythonRulesSettings(
     headPythonColor: Color?,
     bodyPythonColor: Color?,
 
-    selectedOption: String,
-    expanded: Boolean = false,
+    //selectedOption: String,
+    selectedOptionFoodColor: String,
+    selectedOptionBodyColor: String,
+    selectedOptionPoisonColor: String,
+    selectedOptionHeadColor: String,
+    expandedFood: Boolean = false,
+    expandedBody: Boolean = false,
+    expandedHead: Boolean = false,
+    expandedPoison: Boolean = false,
     //onClick: () -> Unit,
-    onClickExpandedChange: (Boolean) -> Unit,
-    onDismissRequest: () -> Unit,
-    onClickOptionExpanded: (String) -> Unit,
-    onClickExpanded: (Boolean) -> Unit,
+    onClickExpandedChangeFood: (Boolean) -> Unit,
+    onClickExpandedChangeBody: (Boolean) -> Unit,
+    onClickExpandedChangeHead: (Boolean) -> Unit,
+    onClickExpandedChangePoison: (Boolean) -> Unit,
+    onDismissRequestFood: () -> Unit,
+    onDismissRequestBody: () -> Unit,
+    onDismissRequestHead: () -> Unit,
+    onDismissRequestPoison: () -> Unit,
+    onClickOptionExpandedFoodColor: (String) -> Unit,
+    onClickOptionExpandedPoisonColor: (String) -> Unit,
+    onClickOptionExpandedHeadColor: (String) -> Unit,
+    onClickOptionExpandedBodyColor: (String) -> Unit,
+    onClickExpandedFood: (Boolean) -> Unit,
+    onClickExpandedPoison: (Boolean) -> Unit,
+    onClickExpandedHead: (Boolean) -> Unit,
+    onClickExpandedBody: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    var textFieldChosenValue by remember { mutableStateOf(TextFieldChosen.Food) }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -120,13 +154,31 @@ fun PythonRulesSettings(
                     idx = options.values.indexOf(selectedOption)
                 },
                  */
-                selectedOption = selectedOption,
-                expanded = expanded,
+                selectedOption = selectedOptionFoodColor,
+                expandedFood = expandedFood,
+                expandedBody = expandedBody,
+                expandedPoison = expandedPoison,
+                expandedHead = expandedHead,
                 //onClick = onClick,
-                onClickExpandedChange = onClickExpandedChange,
-                onDismissRequest = onDismissRequest,
-                onClickOptionExpanded = onClickOptionExpanded,
-                onClickExpanded = onClickExpanded
+                //onClickExpandedChange = onClickExpandedChange,
+                //onDismissRequest = onDismissRequest,
+                onClickExpandedChangeFood = onClickExpandedChangeFood,
+                onClickExpandedChangeBody = onClickExpandedChangeBody,
+                onClickExpandedChangeHead = onClickExpandedChangeHead,
+                onClickExpandedChangePoison = onClickExpandedChangePoison,
+                onDismissRequestFood = onDismissRequestFood,
+                onDismissRequestBody = onDismissRequestBody,
+                onDismissRequestHead = onDismissRequestHead,
+                onDismissRequestPoison = onDismissRequestPoison,
+                onClickOptionExpandedFoodColor = onClickOptionExpandedFoodColor,
+                onClickOptionExpandedPoisonColor = onClickOptionExpandedPoisonColor,
+                onClickOptionExpandedHeadColor = onClickOptionExpandedHeadColor,
+                onClickOptionExpandedBodyColor = onClickOptionExpandedBodyColor,
+                onClickExpandedFood = onClickExpandedFood,
+                onClickExpandedPoison = onClickExpandedPoison,
+                onClickExpandedHead = onClickExpandedHead,
+                onClickExpandedBody = onClickExpandedBody,
+                textFieldChosen = TextFieldChosen.Food
             )
             Spacer(
                 modifier = Modifier
@@ -174,13 +226,29 @@ fun PythonRulesSettings(
             )
             DropDownTextField(
                 options = options,
-                selectedOption = selectedOption,
-                expanded = expanded,
+                selectedOption = selectedOptionPoisonColor,
+                expandedFood = expandedFood,
+                expandedBody = expandedBody,
+                expandedPoison = expandedPoison,
+                expandedHead = expandedHead,
                 //onClick = onClick,
-                onClickExpandedChange = onClickExpandedChange,
-                onDismissRequest = onDismissRequest,
-                onClickOptionExpanded = onClickOptionExpanded,
-                onClickExpanded = onClickExpanded
+                onClickExpandedChangeFood = onClickExpandedChangeFood,
+                onClickExpandedChangeBody = onClickExpandedChangeBody,
+                onClickExpandedChangeHead = onClickExpandedChangeHead,
+                onClickExpandedChangePoison = onClickExpandedChangePoison,
+                onDismissRequestFood = onDismissRequestFood,
+                onDismissRequestBody = onDismissRequestBody,
+                onDismissRequestHead = onDismissRequestHead,
+                onDismissRequestPoison = onDismissRequestPoison,
+                onClickOptionExpandedFoodColor = onClickOptionExpandedFoodColor,
+                onClickOptionExpandedPoisonColor = onClickOptionExpandedPoisonColor,
+                onClickOptionExpandedHeadColor = onClickOptionExpandedHeadColor,
+                onClickOptionExpandedBodyColor = onClickOptionExpandedBodyColor,
+                onClickExpandedFood = onClickExpandedFood,
+                onClickExpandedPoison = onClickExpandedPoison,
+                onClickExpandedHead = onClickExpandedHead,
+                onClickExpandedBody = onClickExpandedBody,
+                textFieldChosen = TextFieldChosen.Poison
             )
             Spacer(
                 modifier = Modifier
@@ -228,13 +296,29 @@ fun PythonRulesSettings(
             )
             DropDownTextField(
                 options = options,
-                selectedOption = selectedOption,
-                expanded = expanded,
+                selectedOption = selectedOptionHeadColor,
+                expandedFood = expandedFood,
+                expandedBody = expandedBody,
+                expandedPoison = expandedPoison,
+                expandedHead = expandedHead,
                 //onClick = onClick,
-                onClickExpandedChange = onClickExpandedChange,
-                onDismissRequest = onDismissRequest,
-                onClickOptionExpanded = onClickOptionExpanded,
-                onClickExpanded = onClickExpanded
+                onClickExpandedChangeFood = onClickExpandedChangeFood,
+                onClickExpandedChangeBody = onClickExpandedChangeBody,
+                onClickExpandedChangeHead = onClickExpandedChangeHead,
+                onClickExpandedChangePoison = onClickExpandedChangePoison,
+                onDismissRequestFood = onDismissRequestFood,
+                onDismissRequestBody = onDismissRequestBody,
+                onDismissRequestHead = onDismissRequestHead,
+                onDismissRequestPoison = onDismissRequestPoison,
+                onClickOptionExpandedFoodColor = onClickOptionExpandedFoodColor,
+                onClickOptionExpandedPoisonColor = onClickOptionExpandedPoisonColor,
+                onClickOptionExpandedHeadColor = onClickOptionExpandedHeadColor,
+                onClickOptionExpandedBodyColor = onClickOptionExpandedBodyColor,
+                onClickExpandedFood = onClickExpandedFood,
+                onClickExpandedPoison = onClickExpandedPoison,
+                onClickExpandedHead = onClickExpandedHead,
+                onClickExpandedBody = onClickExpandedBody,
+                textFieldChosen = TextFieldChosen.Head
             )
             Spacer(
                 modifier = Modifier
@@ -282,13 +366,29 @@ fun PythonRulesSettings(
             )
             DropDownTextField(
                 options = options,
-                selectedOption = selectedOption,
-                expanded = expanded,
+                selectedOption = selectedOptionBodyColor,
+                expandedFood = expandedFood,
+                expandedBody = expandedBody,
+                expandedPoison = expandedPoison,
+                expandedHead = expandedHead,
                 //onClick = onClick,
-                onClickExpandedChange = onClickExpandedChange,
-                onDismissRequest = onDismissRequest,
-                onClickOptionExpanded = onClickOptionExpanded,
-                onClickExpanded = onClickExpanded
+                onClickExpandedChangeFood = onClickExpandedChangeFood,
+                onClickExpandedChangeBody = onClickExpandedChangeBody,
+                onClickExpandedChangeHead = onClickExpandedChangeHead,
+                onClickExpandedChangePoison = onClickExpandedChangePoison,
+                onDismissRequestFood = onDismissRequestFood,
+                onDismissRequestBody = onDismissRequestBody,
+                onDismissRequestHead = onDismissRequestHead,
+                onDismissRequestPoison = onDismissRequestPoison,
+                onClickOptionExpandedFoodColor = onClickOptionExpandedFoodColor,
+                onClickOptionExpandedPoisonColor = onClickOptionExpandedPoisonColor,
+                onClickOptionExpandedHeadColor = onClickOptionExpandedHeadColor,
+                onClickOptionExpandedBodyColor = onClickOptionExpandedBodyColor,
+                onClickExpandedFood = onClickExpandedFood,
+                onClickExpandedPoison = onClickExpandedPoison,
+                onClickExpandedHead = onClickExpandedHead,
+                onClickExpandedBody = onClickExpandedBody,
+                textFieldChosen = TextFieldChosen.Body
             )
             Spacer(
                 modifier = Modifier
@@ -340,13 +440,33 @@ fun PythonRulesSettingsTest() {
             poisonColor = Color.Black,
             headPythonColor = Color.Black,
             bodyPythonColor = Color.Black,
-            selectedOption = "",
-            expanded = false,
+            selectedOptionBodyColor = "",
+            selectedOptionHeadColor = "",
+            selectedOptionPoisonColor = "",
+            selectedOptionFoodColor = "",
+            expandedFood = false,
+            expandedBody = false,
+            expandedPoison = false,
+            expandedHead = false,
             //onClick = {},
-            onDismissRequest = {},
-            onClickExpandedChange = {},
-            onClickOptionExpanded = {},
-            onClickExpanded = {}
+            //onDismissRequest = {},
+            //onClickExpandedChange = {},
+            onClickExpandedChangeFood = {},
+            onClickExpandedChangeBody = {},
+            onClickExpandedChangeHead = {},
+            onClickExpandedChangePoison = {},
+            onDismissRequestFood = {},
+            onDismissRequestBody = {},
+            onDismissRequestHead = {},
+            onDismissRequestPoison = {},
+            onClickExpandedFood = {},
+            onClickExpandedPoison = {},
+            onClickExpandedHead = {},
+            onClickExpandedBody = {},
+            onClickOptionExpandedFoodColor = {},
+            onClickOptionExpandedPoisonColor = {},
+            onClickOptionExpandedHeadColor = {},
+            onClickOptionExpandedBodyColor = {}
         )
     }
 }
