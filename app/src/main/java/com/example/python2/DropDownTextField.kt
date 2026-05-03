@@ -85,7 +85,8 @@ fun DropDownTextField(
             singleLine = true,
             onValueChange = { },
             textStyle = TextStyle.Default,
-            enabled = true,
+            //enabled = true,
+            enabled = textFieldChosen == textFieldChosenValue,
             readOnly = false,
             cursorBrush = SolidColor(Color.Black),
             modifier = Modifier
@@ -95,7 +96,8 @@ fun DropDownTextField(
             TextFieldDefaults.TextFieldDecorationBox(
                 value = selectedOption.toString(),
                 innerTextField = innerTextField,
-                enabled = true,
+                //enabled = true,
+                enabled = textFieldChosen == textFieldChosenValue,
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
                 interactionSource = remember { MutableInteractionSource() },
@@ -194,7 +196,7 @@ fun DropDownTextField(
         }
     }
     Button(onClick = { textFieldChosenValue = textFieldChosen }) {
-        Text(text = "")
+        Text(text = "Update")
     }
 
 }
