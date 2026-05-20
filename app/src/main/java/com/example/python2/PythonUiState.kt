@@ -16,9 +16,8 @@ data class PythonUiState (
         Color.Red to "Red", Color.LightGray to "Light Gray",
         Color.Cyan to "Cyan", Color.DarkGray to "Dark Gray", Color.Gray to "Gray",
         Color.Green to "Green", Color.Magenta to "Magenta", Color.Yellow to "Yellow"),
-    var foodColor: Color? = null,
-    var poisonColor: Color? = null,
-    var headPythonColor: Color? = null,
-    var bodyPythonColor: Color? = null,
+    var foodColor: Color = Color.Blue,
+    var poisonColor: Color = Color.Yellow,
+    var bodyPythonColor: Color = Color.Red,
     val speed: Long = 100L
 )

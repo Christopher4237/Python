@@ -59,6 +59,9 @@ fun PythonGrid(
     updateDirectionRight: () -> Unit,
     directionsEnabled: List<Direction>,
     returnHome: () -> Unit,
+    bodyColor: Color,
+    foodColor: Color,
+    poisonColor: Color,
     modifier: Modifier = Modifier
 ) {
     val data = (0 until 50*50).toList()
@@ -126,9 +129,12 @@ fun PythonGrid(
                         )
                         .background(
                             color = when(item) {
-                                in currentPythonPieces.values -> Color.Black
-                                in food -> Color.Red
-                                in barriers -> Color.Blue
+                                //in currentPythonPieces.values -> Color.Black
+                                //in food -> Color.Red
+                                //in barriers -> Color.Blue
+                                in currentPythonPieces.values -> bodyColor
+                                in food -> foodColor
+                                in barriers -> poisonColor
                                 else -> Color.Transparent
                             }
                         )
@@ -303,7 +309,10 @@ fun PythonGridPreview() {
             accelerateRight = {},
             updateDirectionRight = {},
             directionsEnabled = listOf(),
-            returnHome = {}
+            returnHome = {},
+            bodyColor = Color.Black,
+            poisonColor = Color.Black,
+            foodColor = Color.Black,
         )
     }
 }

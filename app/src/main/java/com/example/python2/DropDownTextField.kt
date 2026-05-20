@@ -24,6 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.python2.ui.theme.Python2Theme
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 
 
@@ -32,27 +34,33 @@ import androidx.compose.material3.Button
 fun DropDownTextField(
     options: Map<Color, String>,
     selectedOption: String,
-    expandedFood: Boolean = false,
-    expandedBody: Boolean = false,
-    expandedPoison: Boolean = false,
-    expandedHead: Boolean = false,
-    //onClick: () -> Unit,
-    onClickExpandedChangeHead: (Boolean) -> Unit,
-    onClickExpandedChangeFood: (Boolean) -> Unit,
-    onClickExpandedChangePoison: (Boolean) -> Unit,
-    onClickExpandedChangeBody: (Boolean) -> Unit,
-    onDismissRequestHead: () -> Unit,
-    onDismissRequestFood: () -> Unit,
-    onDismissRequestPoison: () -> Unit,
-    onDismissRequestBody: () -> Unit,
-    onClickOptionExpandedFoodColor: (String) -> Unit,
-    onClickOptionExpandedPoisonColor: (String) -> Unit,
-    onClickOptionExpandedHeadColor: (String) -> Unit,
-    onClickOptionExpandedBodyColor: (String) -> Unit,
-    onClickExpandedFood: (Boolean) -> Unit,
-    onClickExpandedPoison: (Boolean) -> Unit,
-    onClickExpandedHead: (Boolean) -> Unit,
-    onClickExpandedBody: (Boolean) -> Unit,
+    enabled: Boolean = false,
+    expanded: Boolean = false,
+    //expandedFood: Boolean = false,
+    //expandedBody: Boolean = false,
+    //expandedPoison: Boolean = false,
+    //expandedHead: Boolean = false,
+    onClick: () -> Unit,
+    //onClickExpandedChangeHead: (Boolean) -> Unit,
+    //onClickExpandedChangeFood: (Boolean) -> Unit,
+    //onClickExpandedChangePoison: (Boolean) -> Unit,
+    //onClickExpandedChangeBody: (Boolean) -> Unit,
+    onClickExpandedChange: (Boolean) -> Unit,
+    //onDismissRequestHead: () -> Unit,
+    //onDismissRequestFood: () -> Unit,
+    //onDismissRequestPoison: () -> Unit,
+    //onDismissRequestBody: () -> Unit,
+    onDismissRequest: () -> Unit,
+    //onClickOptionExpandedFoodColor: (String) -> Unit,
+    //onClickOptionExpandedPoisonColor: (String) -> Unit,
+    //onClickOptionExpandedHeadColor: (String) -> Unit,
+    //onClickOptionExpandedBodyColor: (String) -> Unit,
+    onClickOptionExpandedColor: (String) -> Unit,
+    //onClickExpandedFood: (Boolean) -> Unit,
+    //onClickExpandedPoison: (Boolean) -> Unit,
+    //onClickExpandedHead: (Boolean) -> Unit,
+    //onClickExpandedBody: (Boolean) -> Unit,
+    onClickExpanded: (Boolean) -> Unit,
     textFieldChosen: TextFieldChosen
 ) {
 
@@ -61,24 +69,28 @@ fun DropDownTextField(
     //var selectedOption by remember { mutableStateOf("") }
 
     //var textFieldChosenValue: TextFieldChosen = TextFieldChosen.Food
-    var textFieldChosenValue by remember { mutableStateOf(TextFieldChosen.Food) }
+    //var textFieldChosenValue by remember { mutableStateOf(TextFieldChosen.Food) }
 
 
     ExposedDropdownMenuBox(
+        /*
         expanded = when (textFieldChosenValue) {
             TextFieldChosen.Food -> expandedFood
             TextFieldChosen.Head -> expandedHead
             TextFieldChosen.Body -> expandedBody
             TextFieldChosen.Poison -> expandedPoison
         },
-        //expanded = expanded,
-        //onExpandedChange = { expanded = !expanded }
+         */
+        expanded = expanded,
+        onExpandedChange = onClickExpandedChange
+        /*
         onExpandedChange = when (textFieldChosenValue) {
             TextFieldChosen.Food -> onClickExpandedChangeFood
             TextFieldChosen.Head -> onClickExpandedChangeHead
             TextFieldChosen.Body -> onClickExpandedChangeBody
             TextFieldChosen.Poison -> onClickExpandedChangePoison
         }
+         */
     ) {
         BasicTextField(
             value = selectedOption,
@@ -86,7 +98,8 @@ fun DropDownTextField(
             onValueChange = { },
             textStyle = TextStyle.Default,
             //enabled = true,
-            enabled = textFieldChosen == textFieldChosenValue,
+            //enabled = textFieldChosen == textFieldChosenValue,
+            enabled = enabled,
             readOnly = false,
             cursorBrush = SolidColor(Color.Black),
             modifier = Modifier
@@ -97,7 +110,8 @@ fun DropDownTextField(
                 value = selectedOption.toString(),
                 innerTextField = innerTextField,
                 //enabled = true,
-                enabled = textFieldChosen == textFieldChosenValue,
+                //enabled = textFieldChosen == textFieldChosenValue,
+                enabled = enabled,
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
                 interactionSource = remember { MutableInteractionSource() },
@@ -106,6 +120,7 @@ fun DropDownTextField(
                     disabledIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 ),
+                /*
                 trailingIcon =
                     if (textFieldChosenValue == TextFieldChosen.Food) {
                         {
@@ -126,6 +141,10 @@ fun DropDownTextField(
                     } else {
                         {}
                     },
+                 */
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                },
                 label = {
                     Text(
                         "Select an option",
@@ -137,21 +156,29 @@ fun DropDownTextField(
             )
         }
         ExposedDropdownMenu(
+            /*
             expanded = when (textFieldChosenValue) {
                 TextFieldChosen.Food -> expandedFood
                 TextFieldChosen.Head -> expandedHead
                 TextFieldChosen.Body -> expandedBody
                 TextFieldChosen.Poison -> expandedPoison
             },
+             */
+            expanded = expanded,
             //onDismissRequest = { expanded = false }
-            //onDismissRequest = onDismissRequest
+            onDismissRequest = onDismissRequest,
+            /*
             onDismissRequest = when (textFieldChosenValue) {
                 TextFieldChosen.Food -> onDismissRequestFood
                 TextFieldChosen.Head -> onDismissRequestHead
                 TextFieldChosen.Body -> onDismissRequestBody
                 TextFieldChosen.Poison -> onDismissRequestPoison
             },
+             */
+            modifier = Modifier
+                 .verticalScroll(rememberScrollState())
         ) {
+            /*
             if (textFieldChosenValue == TextFieldChosen.Food) {
                 options.values.forEach { option ->
                     DropdownMenuItem(
@@ -193,12 +220,28 @@ fun DropDownTextField(
                     )
                 }
             }
+             */
+            options.values.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        onClickOptionExpandedColor(option)
+                        onClickExpanded(expanded)
+                    }
+                )
+            }
         }
     }
+     /*
     Button(onClick = { textFieldChosenValue = textFieldChosen }) {
         Text(text = "Update")
     }
-
+      */
+    /*
+    Button(onClick = onClick) {
+        Text(text = "Update")
+    }
+     */
 }
 
 
@@ -209,27 +252,29 @@ fun DropDownTextFieldPreview() {
         DropDownTextField(
             options = mapOf(),
             selectedOption = "",
-            expandedFood = false,
-            expandedBody = false,
-            expandedPoison = false,
-            expandedHead = false,
+            //expandedFood = false,
+            //expandedBody = false,
+            //expandedPoison = false,
+            //expandedHead = false,
+            expanded = false,
             //onClick = {},
-            onDismissRequestFood = {},
-            onDismissRequestBody = {},
-            onDismissRequestPoison = {},
-            onDismissRequestHead = {},
-            onClickExpandedChangeFood = {},
-            onClickExpandedChangeBody = {},
-            onClickExpandedChangePoison = {},
-            onClickExpandedChangeHead = {},
-            onClickOptionExpandedFoodColor = {},
-            onClickExpandedHead = {},
-            onClickExpandedBody = {},
-            onClickExpandedPoison = {},
-            onClickExpandedFood = {},
-            onClickOptionExpandedPoisonColor = {},
-            onClickOptionExpandedHeadColor = {},
-            onClickOptionExpandedBodyColor = {},
+            //onDismissRequestFood = {},
+            //onDismissRequestBody = {},
+            //onDismissRequestPoison = {},
+            onDismissRequest = {},
+            //onClickExpandedChangeFood = {},
+            //onClickExpandedChangeBody = {},
+            //onClickExpandedChangePoison = {},
+            onClickExpandedChange = {},
+            //onClickOptionExpandedFoodColor = {},
+            //onClickOptionExpandedPoisonColor = {},
+            //onClickOptionExpandedBodyColor = {},
+            onClickOptionExpandedColor = {},
+            //onClickExpandedBody = {},
+            //onClickExpandedPoison = {},
+            //onClickExpandedFood = {},
+            onClickExpanded = {},
+            onClick = {},
             textFieldChosen = TextFieldChosen.Food
         )
     }

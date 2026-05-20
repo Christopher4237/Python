@@ -42,19 +42,21 @@ fun PythonNavigation (
 
     // State variables
     var expandedFood by remember { mutableStateOf(false) }
-    var expandedBody by remember { mutableStateOf(false) }
     var expandedPoison by remember { mutableStateOf(false) }
-    var expandedHead by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf("") }
-    var selectedOptionFoodColor by remember { mutableStateOf("") }
-    var selectedOptionPoisonColor by remember { mutableStateOf("") }
-    var selectedOptionHeadColor by remember { mutableStateOf("") }
-    var selectedOptionBodyColor by remember { mutableStateOf("") }
-
+    //var expandedHead by remember { mutableStateOf(false) }
+    var expandedBody by remember { mutableStateOf(false) }
+    //var selectedOption by remember { mutableStateOf("") }
+    var selectedOptionFoodColor by remember { mutableStateOf("Blue") }
+    var selectedOptionPoisonColor by remember { mutableStateOf("Yellow") }
+    var selectedOptionBodyColor by remember { mutableStateOf("Red") }
 
 
     var idx by remember { mutableIntStateOf(0) }
 
+
+
+    var textFieldChosenValue by remember { mutableStateOf(TextFieldChosen.Food) }
+    var textFieldChosenOn by remember { mutableStateOf(false) }
 
     NavHost(
         navController = navController,
@@ -115,7 +117,10 @@ fun PythonNavigation (
                 },
                 returnHome = {
                     navController.navigate(PythonScreen.Home.name)
-                }
+                },
+                bodyColor = pythonUiState.bodyPythonColor,
+                foodColor = pythonUiState.foodColor,
+                poisonColor = pythonUiState.poisonColor
             )
         }
         composable(
@@ -129,17 +134,22 @@ fun PythonNavigation (
                 foodColor = pythonUiState.foodColor,
                 //foodColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionFoodColor)),
                 poisonColor = pythonUiState.poisonColor,
-                headPythonColor = pythonUiState.headPythonColor,
                 bodyPythonColor = pythonUiState.bodyPythonColor,
                 //selectedOption = selectedOption,
                 selectedOptionFoodColor = selectedOptionFoodColor,
                 selectedOptionBodyColor = selectedOptionBodyColor,
                 selectedOptionPoisonColor = selectedOptionPoisonColor,
-                selectedOptionHeadColor = selectedOptionHeadColor,
                 expandedFood = expandedFood,
                 expandedBody = expandedBody,
                 expandedPoison = expandedPoison,
-                expandedHead = expandedHead,
+                /*
+                expanded = when(textFieldChosenValue) {
+                    TextFieldChosen.Food -> expandedFood
+                    TextFieldChosen.Poison -> expandedPoison
+                    TextFieldChosen.Head -> expandedHead
+                    TextFieldChosen.Body -> expandedBody
+                },
+                 */
                 /*
                 onClick = {
                     selectedOption = it.toString()
@@ -147,17 +157,15 @@ fun PythonNavigation (
                     idx = pythonUiState.colors.values.indexOf(selectedOption)
                 },
                  */
+                //textFieldChosenOn = textFieldChosenValue == textFieldChosen,
                 onClickExpandedChangeFood = { expandedFood = !expandedFood },
                 onClickExpandedChangeBody = { expandedBody = !expandedBody },
-                onClickExpandedChangeHead = { expandedHead = !expandedHead },
                 onClickExpandedChangePoison = { expandedPoison = !expandedPoison },
                 onDismissRequestFood = { expandedFood = false },
                 onDismissRequestBody = { expandedBody = false },
-                onDismissRequestHead = { expandedHead = false },
                 onDismissRequestPoison = { expandedPoison = false },
                 onClickExpandedFood = { expandedFood = false },
                 onClickExpandedBody = { expandedBody = false },
-                onClickExpandedHead = { expandedHead = false },
                 onClickExpandedPoison = { expandedPoison = false },
                 onClickOptionExpandedFoodColor = {
                     selectedOptionFoodColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
@@ -167,13 +175,18 @@ fun PythonNavigation (
                     selectedOptionPoisonColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
                     pythonUiState.poisonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionPoisonColor))
                 },
-                onClickOptionExpandedHeadColor = {
-                    selectedOptionHeadColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
-                    pythonUiState.headPythonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionHeadColor))
-                },
                 onClickOptionExpandedBodyColor = {
                     selectedOptionBodyColor = pythonUiState.colors.values.elementAt(pythonUiState.colors.values.indexOf(it))
                     pythonUiState.bodyPythonColor = pythonUiState.colors.keys.elementAt(pythonUiState.colors.values.indexOf(selectedOptionBodyColor))
+                },
+                onClickChooseBody = {
+                    textFieldChosenValue = TextFieldChosen.Body
+                },
+                onClickChoosePoison = {
+                    textFieldChosenValue = TextFieldChosen.Poison
+                },
+                onClickChooseFood = {
+                    textFieldChosenValue = TextFieldChosen.Food
                 }
             )
         }
